@@ -6,6 +6,7 @@
 	import { onMount } from "svelte";
     
     const file = page.params.file;
+    const download = page.url.searchParams.getAll('d')
 
     let responded = $state(false);
     let link = $state('');
@@ -17,6 +18,10 @@
                 return;
             }
             link = downloadFile(file);
+            console.log(download);
+            if (download.length > 0) {
+                window.location.assign(link);
+            }
             responded = true;
         }, function (error) {
             console.error(error);
