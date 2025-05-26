@@ -1,17 +1,16 @@
-import { Client, Databases, Query, Storage } from 'appwrite';
+import PocketBase from 'pocketbase';
 
-const client = new Client()
-    .setEndpoint("https://fra.cloud.appwrite.io/v1")
-    .setProject("downloads");
+const pb = new PocketBase('https://theokapi-downloads.pockethost.io/');
 
-const databases = new Databases(client);
-const storage = new Storage(client);
-
-export function isFile(id: string) {
-    return databases.listDocuments("files", "files", 
-        [Query.equal('id', id)]);
-}
-
-export function downloadFile(id: string) {
-    return storage.getFileDownload('files', id);
+export async function isFile(id: string) {
+	try {
+		const records = await pb.collection('files').getFullList({ filter: `name="${id}"` });
+		if (records.length > 0) {
+			return [0, records[0].path];
+		} else {
+			return [1, ''];
+		}
+	} catch (err) {
+		return [2, err];
+	}
 }

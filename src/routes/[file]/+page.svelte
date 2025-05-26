@@ -1,47 +1,47 @@
 <script>
-	import { goto } from "$app/navigation";
-    import { page } from "$app/state";
-    import { isFile, downloadFile } from '$lib/appwrite';
-    import { Button } from "$components";
-	import { onMount } from "svelte";
-    
-    const file = page.params.file;
-    const download = page.url.searchParams.getAll('d')
+	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
+	import { isFile } from '$lib/appwrite';
+	import { Button } from '$components';
+	import { onMount } from 'svelte';
 
-    let responded = $state(false);
-    let link = $state('');
-    onMount(() => {
-        const promise = isFile(file);
-        promise.then(function (response) {
-            if (response.total === 0) {
-                goto("/?e=0");
-                return;
-            }
-            link = downloadFile(file);
-            console.log(download);
-            if (download.length > 0) {
-                window.location.assign(link);
-            }
-            responded = true;
-        }, function (error) {
-            console.error(error);
-            goto("/?e=1");
-        });
-    });
+	const file = page.params.file;
+
+	let responded = $state(false);
+	let link = $state('');
+	onMount(async () => {
+		const [code, message] = await isFile(file);
+		if (code === 1) {
+			goto('/?e=0');
+			return;
+		} else if (code === 2) {
+			goto('/?e=1');
+			return;
+		}
+		link = message;
+		responded = true;
+	});
 </script>
 
 {#if !responded}
-    <h1 class="text-center text-[4em] font-black mt-[20%] title">Loading...</h1>
+	<h1 class="title mt-[20%] text-center text-[4em] font-black">Loading...</h1>
 {:else}
-    <a href={link} download><h1 class="text-center text-[4em] font-black mt-[20%] title underline">Download {file}</h1></a>
-    <div class="m-auto w-fit mt-[12%]"><Button onclick={() => goto('/')} class="text-xl h-12">Back</Button></div>
+	<a href={link} download
+		><h1 class="title mt-[20%] text-center text-[4em] font-black underline">Download {file}</h1></a
+	>
+	<div class="m-auto mt-[12%] w-fit">
+		<Button onclick={() => goto('/')} class="h-12 text-xl">Back</Button>
+	</div>
 {/if}
 
 <style>
-    .title {
-        text-shadow: 0 0 10px #00BC7D, 0 0 20px #00BC7D, 0 0 30px #00BC7D;
-    }
-    a {
-        outline: none;
-    }
+	.title {
+		text-shadow:
+			0 0 10px #00bc7d,
+			0 0 20px #00bc7d,
+			0 0 30px #00bc7d;
+	}
+	a {
+		outline: none;
+	}
 </style>

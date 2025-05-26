@@ -8,12 +8,12 @@ importers:
 
   .:
     dependencies:
-      appwrite:
-        specifier: ^18.0.0
-        version: 18.0.0
       mode-watcher:
         specifier: ^1.0.7
         version: 1.0.7(svelte@5.31.1)
+      pocketbase:
+        specifier: ^0.26.0
+        version: 0.26.0
     devDependencies:
       '@lucide/svelte':
         specifier: ^0.511.0
@@ -681,9 +681,6 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
-  appwrite@18.0.0:
-    resolution: {integrity: sha512-19qs1dj6s/6MbC1Ds6PuwR7qA5p2zGs4fPVIgSItP3kiBnm5+ScA4FNkBbwrT99Kq+mcfG3LA1GRJDOkPMUkxQ==}
-
   aria-query@5.3.2:
     resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
     engines: {node: '>= 0.4'}
@@ -958,6 +955,9 @@ packages:
   picomatch@4.0.2:
     resolution: {integrity: sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==}
     engines: {node: '>=12'}
+
+  pocketbase@0.26.0:
+    resolution: {integrity: sha512-WBBeOgz4Jnrd7a1KEzSBUJqpTortKKCcp16j5KoF+4tNIyQHsmynj+qRSvS56/RVacVMbAqO8Qkfj3N84fpzEw==}
 
   postcss@8.5.3:
     resolution: {integrity: sha512-dle9A3yYxlBSrt8Fu+IpjGT8SY8hN0mlaA6GY8t0P5PjIOZemULz/E2Bnm/2dcUOena75OTNkHI76uZBNUUq3A==}
@@ -1699,8 +1699,6 @@ snapshots:
 
   acorn@8.14.1: {}
 
-  appwrite@18.0.0: {}
-
   aria-query@5.3.2: {}
 
   as-table@1.0.55:
@@ -1943,6 +1941,8 @@ snapshots:
   picocolors@1.1.1: {}
 
   picomatch@4.0.2: {}
+
+  pocketbase@0.26.0: {}
 
   postcss@8.5.3:
     dependencies:
