@@ -10,7 +10,7 @@
 	let responded = $state(false);
 	let link = $state('');
 	onMount(async () => {
-		const [code, message] = await isFile(file);
+		const [code, message] = isFile(file);
 		if (code === 1) {
 			goto('/?e=0');
 			return;

@@ -1,16 +1,25 @@
-import PocketBase from 'pocketbase';
+type FilePath = {
+	name: string;
+	path: string;
+};
 
-const pb = new PocketBase('https://theokapi-downloads.pockethost.io/');
+function nf(name: string, path: string): FilePath {
+	return { name, path };
+}
 
-export async function isFile(id: string) {
-	try {
-		const records = await pb.collection('files').getFullList({ filter: `name="${id}"` });
-		if (records.length > 0) {
-			return [0, records[0].path];
-		} else {
-			return [1, ''];
-		}
-	} catch (err) {
-		return [2, err];
+const db: FilePath[] = [
+	nf('lesincasanciens-jeu', '/Game.zip'),
+	nf('lesincasanciens-images', '/Images.zip'),
+	nf('lesincasanciens-code', '/Code.zip'),
+	nf('test', '/test.txt'),
+	nf('wallpapers', '/Wallpapers.zip')
+];
+
+export function isFile(id: string) {
+	const filePathIndex = db.findIndex((a) => a.name === id);
+	if (filePathIndex != -1) {
+		return [0, db[filePathIndex].path];
+	} else {
+		return [1, ''];
 	}
 }
